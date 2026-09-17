@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estúdio de Viabilidade | Praia Digital</title>
+<meta name="description" content="Análise rápida de viabilidade: terreno + construção + renda de temporada no litoral paulista. Satélite de praia.digital.">
+<style>
+body{font-family:system-ui,-apple-system,sans-serif;margin:0;background:#f8fafc;color:#0f172a;line-height:1.6}
+.hero{background:linear-gradient(135deg,#1e3a8a,#3b82f6);color:#fff;padding:50px 20px;text-align:center}
+.container{max-width:1000px;margin:0 auto;padding:30px 20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.cta{display:inline-block;background:#fff;color:#0c4a6e;padding:10px 22px;border-radius:8px;text-decoration:none;font-weight:700;margin:6px}
+button{background:#0284c7;color:#fff;border:none;padding:10px 18px;border-radius:8px;font-weight:700;cursor:pointer}
+input,select,textarea{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;margin:6px 0;font-family:inherit}
+footer{text-align:center;padding:24px;color:#64748b;font-size:.9em}
+.bar{height:14px;border-radius:7px;background:linear-gradient(90deg,#0ea5e9,#0369a1)}
+</style>
+</head>
+<body>
+<nav style="background:#0c4a6e;padding:12px 20px;display:flex;gap:14px;flex-wrap:wrap;font-family:system-ui,sans-serif">
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praia.digital/">🌊 Praia Digital</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/apps/">Hub</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/hermes-agents/">Hermes Agents</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/area-anfitriao/">Anfitrião</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/simulador-roi/">ROI</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/simulador-credito/">Crédito</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/guia-litoral/">Guia</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/blog-litoral/">Blog</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/calculadoras/">Calculadoras</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/radar-precos/">Radar</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/mapa-investidor/">Mapa</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/concierge-ia/">Concierge IA</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/checklist-anfitriao/">Checklist</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/roteiro-litoral/">Roteiros</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/manual-hospede/">Manual</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/termometro-mercado/">Termômetro</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/estudio-viabilidade/">Viabilidade</a>
+</nav>
+<div class="hero"><h1>📐 Estúdio de Viabilidade</h1><p>Terreno, construção e renda de temporada — descubra em segundos se o projeto se paga.</p></div>
+<div class="container"><div class="grid">
+<div class="card"><h3>1️⃣ Dados do projeto</h3>
+<label>Valor do terreno (R$)</label><input id="terreno" type="number" value="250000">
+<label>Área construída (m²)</label><input id="area" type="number" value="120">
+<label>Custo de construção (R$/m²)</label><input id="custm2" type="number" value="4500">
+<label>Diária média esperada (R$)</label><input id="diaria" type="number" value="400">
+<label>Ocupação anual (%)</label><input id="ocup" type="number" value="50">
+<label>Custos operacionais (%)</label><input id="custos" type="number" value="25">
+<button onclick="calc()">📊 Analisar viabilidade</button></div>
+<div class="card"><h3>2️⃣ Resultado</h3><div id="saida"></div></div>
+</div>
+<div class="card"><h3>🧭 Aprofunde a análise</h3><p>Cruze com o <a href="https://praiadigital.github.io/mapa-investidor/">Mapa do Investidor</a>, os preços do <a href="https://praiadigital.github.io/radar-precos/">Radar de Preços</a> e o financiamento no <a href="https://praiadigital.github.io/simulador-credito/">Simulador de Crédito</a>.</p></div>
+</div>
+<script>
+const fmt=v=>v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+function calc(){
+const t=+document.getElementById('terreno').value||0,a=+document.getElementById('area').value||0,c=+document.getElementById('custm2').value||0,d=+document.getElementById('diaria').value||0,o=+document.getElementById('ocup').value||0,ct=+document.getElementById('custos').value||0;
+const invest=t+a*c, bruta=d*365*o/100, liq=bruta*(1-ct/100);
+const payback=liq>0?invest/liq:Infinity, yld=invest>0?liq/invest*100:0;
+const ok=payback<=12;
+document.getElementById('saida').innerHTML=`\n<p>💰 Investimento total: <strong>${fmt(invest)}</strong></p>\n<p>📈 Receita líquida anual: <strong>${fmt(liq)}</strong></p>\n<p>📊 Yield: <strong>${yld.toFixed(1)}% a.a.</strong></p>\n<p>⏳ Payback: <strong>${payback===Infinity?'—':payback.toFixed(1)+' anos'}</strong></p>\n<p style="font-size:1.2em;font-weight:800;color:${ok?'#16a34a':'#dc2626'}">${ok?'✅ Projeto viável para temporada':'⚠️ Atenção: revise diária, ocupação ou custos'}</p>`;}
+calc();
+</script>
+<footer>© Praia Digital — 2026 — Satélite da rede <a href="https://praia.digital">praia.digital</a> · <a href="https://praiadigital.github.io/apps/">Ver todos os apps</a></footer>
+</body>
+</html>
